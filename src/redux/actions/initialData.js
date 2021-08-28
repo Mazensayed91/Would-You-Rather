@@ -4,7 +4,7 @@ import {receiveUsers} from "./users.js";
 import {receiveQuestions} from "./questions";
 import {setAuthedUser} from "./authedUsers";
 
-const AUTH_ID = 'sarahedo'
+const AUTH_ID = null
 
 export function handleInitialData(){
     return (dispatch) => {

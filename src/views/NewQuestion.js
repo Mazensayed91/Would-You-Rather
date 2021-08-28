@@ -6,7 +6,7 @@ class NewQuestion extends Component {
     render() {
         return (
             <div>
-                NewQuestion
+                Here you can add new question
             </div>
         )
     }

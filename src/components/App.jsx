@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import {connect} from "react-redux";
 import LoadingBar from "react-redux-loading";
 import {handleInitialData} from  "../redux/actions/initialData"
-import {BrowserRouter as Router , Route, Switch} from "react-router-dom"
+import {BrowserRouter as Router , Route, Switch, withRouter} from "react-router-dom"
 import PageNotFound from "../views/PageNotFound.js"
 import Dashboard from "../views/Dashboard.js"
 import Login from "../views/Login.js"
 import Leaderboard from "../views/LeaderBoard";
+import NewQuestion from "../views/NewQuestion";
+import NavBar from "../helperComponents/NavBar.js";
 
 
 class App extends Component {
@@ -18,23 +20,25 @@ class App extends Component {
   render() {
     return (
       <div>
-        {console.log(this.props.loggedIn)}
         <LoadingBar/>
           {
               !this.props.loggedIn ?
                   <Login/>
                   :
+
                   <Router>
+                      <NavBar/>
+
                       <Switch>
                           <Route exact path="/">
                               <Dashboard/>
                           </Route>
-                          <Route exact path="/leaderboard">
-                              <Leaderboard/>
-                          </Route>
+                          <Route exact path="/leaderboard" component = {withRouter(Leaderboard)}/>
+                          <Route exact path="/new_question" component = {withRouter(NewQuestion)}/>
+
+
                           <Route component={PageNotFound} />
                       </Switch>
-
                   </Router>
           }
 
@@ -49,4 +53,4 @@ const mapStateToProps = ({authedUser}) => {
     }
 }
 
-export default connect(mapStateToProps)(App)
+export default withRouter(connect(mapStateToProps)(App))
