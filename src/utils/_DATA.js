@@ -1,3 +1,5 @@
+const {formatQuestion} = require('./helpers.js')
+
 let users = {
   sarahedo: {
     id: 'sarahedo',
