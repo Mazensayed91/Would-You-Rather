@@ -6,5 +6,5 @@ module.exports.setAuthedUser = (userID) => ({
 })
 
 module.exports.removeAuthedUser = () => ({
-    type: AUTHED_USER_CONSTANTS.REMOVE_AUTHED_USER
+    type: AUTHED_USER_CONSTANTS.REMOVE_AUTHED_USER,
 })

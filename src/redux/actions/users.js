@@ -5,3 +5,4 @@ module.exports.receiveUsers = (users) => ({
     type: USERS_CONSTANTS.RECEIVE_ALL_USERS,
     payload: {users}
 })
+
