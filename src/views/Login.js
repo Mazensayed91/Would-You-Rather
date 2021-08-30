@@ -1,24 +1,28 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux";
-import InputLabel from '@material-ui/core/Button';
 import Select from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+
 import {setAuthedUser} from "../redux/actions/authedUsers.js";
 
 class Login extends Component {
 
     authUser = (userId) => {
-        console.log("el props", this.props, userId)
         this.props.dispatch(setAuthedUser(userId));
     }
     render() {
         return (
             <React.Fragment>
             <div>
-                <InputLabel>Users:</InputLabel>
+                <br/>
+                <h1>Select User:</h1>
+                <br/>
+                <br/>
                 <Select>
                     {this.props.data ? this.props.data.map(user => {
-                        return <div key = {user[0]}> <MenuItem onClick={() => this.authUser(user[1])}>{user[1] }</MenuItem></div>
+                        return <div key = {user[0]}>
+                            <MenuItem onClick={() => this.authUser(user[1])}>{user[1] }</MenuItem>
+                        </div>
                     }): 0}
                 </Select>
 
@@ -30,9 +34,8 @@ class Login extends Component {
 
 const mapStateToProps = ({users}) => {
 
-    console.log("users", users)
-    let usersData = users['users']
-    let data = users['users'] ? Object.values(usersData).map((user) => {
+    let usersData = users
+    let data = users ? Object.values(usersData).map((user) => {
         return [user.name, user.id]
     }):0
     return {

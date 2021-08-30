@@ -9,6 +9,7 @@ import Login from "../views/Login.js"
 import Leaderboard from "../views/LeaderBoard";
 import NewQuestion from "../views/NewQuestion";
 import NavBar from "../helperComponents/NavBar.js";
+import QuestionDetails from "../views/QuestionDetails";
 
 
 class App extends Component {
@@ -35,7 +36,9 @@ class App extends Component {
                           </Route>
                           <Route exact path="/leaderboard" component = {withRouter(Leaderboard)}/>
                           <Route exact path="/new_question" component = {withRouter(NewQuestion)}/>
-
+                          <Route path="/question/:id" render={(match) => <QuestionDetails
+                              questionId = {match.match.params.id}/>}
+                          />
 
                           <Route component={PageNotFound} />
                       </Switch>

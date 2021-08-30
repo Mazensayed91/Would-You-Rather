@@ -114,7 +114,7 @@ let questions = {
       votes: ['tylermcginnis'],
       text: 'write Swift'
     }
-  },
+  }
 }
 
 
@@ -133,7 +133,7 @@ export function _getQuestions () {
 
 export function _saveQuestion (question) {
   return new Promise((res, rej) => {
-    const authedUser = question.author;
+    const authedUser = question.authedUser;
     const formattedQuestion = formatQuestion(question)
 
     setTimeout(() => {

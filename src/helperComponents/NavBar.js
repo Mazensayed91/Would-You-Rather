@@ -3,12 +3,11 @@ import Tab from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
 
 
-const types = ['Home', 'New Question', 'Leaderboard'];
+const views = ['Home', 'New Question', 'Leaderboard'];
 
 
 
 function renderSwitch(activeType) {
-
     switch(activeType) {
         case 'Home':
             return <Redirect to="/"/>;
@@ -21,14 +20,15 @@ function renderSwitch(activeType) {
     }
 }
 function NavBar() {
-    const [active, setActive] = useState(types[0]);
+    const [active, setActive] = useState(views[0]);
     return (
         <React.Fragment>
-                {types.map(type => (
+                {views.map(type => (
                     <Tab
                         key={type}
                         onClick={() => {
                             setActive(type);
+                            renderSwitch(active)
                         }}
                     >
                         {type}

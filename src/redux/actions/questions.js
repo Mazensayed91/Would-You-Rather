@@ -13,9 +13,9 @@ const addQuestion = (question) => ({
     payload: {question}
 })
 
-const authedUserAddQuestion = ({qid, author}) => ({
+const authedUserAddQuestion = ({qid, authedUser}) => ({
     type: QUESTIONS_CONSTANTS.AUTHED_USER_ADD_QUESTION,
-    payload: {qid, author}
+    payload: {qid, authedUser}
 })
 
 const addAnswer = ({ authedUser, qid, answer }) => ({
@@ -34,7 +34,7 @@ module.exports.handleAddingQuestion = ({optionOne, optionTwo, authedUser}) => {
         dispatch(showLoading());
         return saveQuestion({optionOne, optionTwo, authedUser}).then((question) => {
             dispatch(addQuestion(question));
-            dispatch(authedUserAddQuestion({qid: question.id, author: authedUser}));
+            dispatch(authedUserAddQuestion({qid: question.id, authedUser: authedUser}));
             dispatch(hideLoading())
         })
     }
