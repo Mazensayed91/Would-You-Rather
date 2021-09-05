@@ -13,23 +13,9 @@ class Dashboard extends Component {
             <div>
                 <Tabs>
                     <TabList>
-                        <Tab>Answered Questions</Tab>
                         <Tab>Unanswered Questions</Tab>
+                        <Tab>Answered Questions</Tab>
                     </TabList>
-
-                    <TabPanel>
-                        {this.props.answeredQuestionsSorted ? Object.values(this.props.answeredQuestionsSorted).map((question) => {
-                                return <Question
-                                    key = {question.timestamp}
-                                    author = {question.author}
-                                    optionOne = {question.optionOne['text']}
-                                    optionTwo = {question.optionTwo['text']}
-                                    questionId = {question.id}
-                                />
-                            })
-                            :
-                            []}
-                    </TabPanel>
                     <TabPanel>
                         {this.props.unAnsweredQuestionsSorted ? Object.values(this.props.unAnsweredQuestionsSorted).map((question) => {
                                 return <Question
@@ -44,6 +30,20 @@ class Dashboard extends Component {
                             :
                             []}
                     </TabPanel>
+                    <TabPanel>
+                        {this.props.answeredQuestionsSorted ? Object.values(this.props.answeredQuestionsSorted).map((question) => {
+                                return <Question
+                                    key = {question.timestamp}
+                                    author = {question.author}
+                                    optionOne = {question.optionOne['text']}
+                                    optionTwo = {question.optionTwo['text']}
+                                    questionId = {question.id}
+                                />
+                            })
+                            :
+                            []}
+                    </TabPanel>
+
                 </Tabs>
             </div>
         )
