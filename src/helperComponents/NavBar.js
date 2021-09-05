@@ -1,45 +1,41 @@
-import React, { useState } from 'react';
+import React, {Component} from 'react';
 import Tab from '@material-ui/core/Button';
-import { Redirect } from "react-router-dom";
-
-
-const views = ['Home', 'New Question', 'Leaderboard'];
-
-
-
-function renderSwitch(activeType) {
-    switch(activeType) {
-        case 'Home':
-            return <Redirect to="/"/>;
-        case 'New Question':
-            return <Redirect to="/new_question" />;
-        case 'Leaderboard':
-            return <Redirect to="/leaderboard" />;
-        default:
-            console.log("default case")
+import {Link} from "react-router-dom";
+import {Redirect} from "react-router"
+//<Redirect exact from='/' to={window.location.href.replace("http://localhost:3000", "")}/>
+class NavBar extends Component {
+    state = {
+        redirect: false
     }
-}
-function NavBar() {
-    const [active, setActive] = useState(views[0]);
+    handleOnClick = () => {
+        // redirect
+        this.setState({redirect: true});
+    }
+    render() {
+        if (this.state.redirect) {
+            console.log("here we are")
+            return <Redirect push to="/" />;
+        }
     return (
-        <React.Fragment>
-                {views.map(type => (
-                    <Tab
-                        key={type}
-                        onClick={() => {
-                            setActive(type);
-                            renderSwitch(active)
-                        }}
-                    >
-                        {type}
-                    </Tab>
 
-                ))}
-            {renderSwitch(active)}
+        <React.Fragment>
+
+            <Tab>
+               <Link to = "/">Home</Link>
+            </Tab>
+            <Tab>
+                <Link to = "/add"> New Question </Link>
+            </Tab>
+            <Tab>
+                <Link to = "/leaderboard"> Leaderboard </Link>
+            </Tab>
+
+            {console.log("el console", window.location.href)}
+
             <p />
 
         </React.Fragment>
     );
-}
+}}
 
 export default NavBar

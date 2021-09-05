@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from "react-redux";
 import LoadingBar from "react-redux-loading";
 import {handleInitialData} from  "../redux/actions/initialData"
-import {BrowserRouter as Router , Route, Switch, withRouter} from "react-router-dom"
+import {BrowserRouter as Router, Route, Switch, withRouter} from "react-router-dom"
 import PageNotFound from "../views/PageNotFound.js"
 import Dashboard from "../views/Dashboard.js"
 import Login from "../views/Login.js"
@@ -17,7 +17,7 @@ class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
-
+  redirectFlag = 1;
   render() {
     return (
       <div>
@@ -29,13 +29,12 @@ class App extends Component {
 
                   <Router>
                       <NavBar/>
-
                       <Switch>
                           <Route exact path="/">
                               <Dashboard/>
                           </Route>
-                          <Route exact path="/leaderboard" component = {withRouter(Leaderboard)}/>
-                          <Route exact path="/new_question" component = {withRouter(NewQuestion)}/>
+                          <Route path="/leaderboard" component = {withRouter(Leaderboard)}/>
+                          <Route path="/add" component = {withRouter(NewQuestion)}/>
                           <Route path="/question/:id" render={(match) => <QuestionDetails
                               questionId = {match.match.params.id}/>}
                           />
@@ -51,6 +50,7 @@ class App extends Component {
 }
 
 const mapStateToProps = ({authedUser}) => {
+
     return {
         loggedIn: authedUser !== null
     }

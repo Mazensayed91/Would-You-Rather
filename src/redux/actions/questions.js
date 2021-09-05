@@ -33,6 +33,8 @@ module.exports.handleAddingQuestion = ({optionOne, optionTwo, authedUser}) => {
     return (dispatch) => {
         dispatch(showLoading());
         return saveQuestion({optionOne, optionTwo, authedUser}).then((question) => {
+            console.log("qq", question)
+
             dispatch(addQuestion(question));
             dispatch(authedUserAddQuestion({qid: question.id, authedUser: authedUser}));
             dispatch(hideLoading())

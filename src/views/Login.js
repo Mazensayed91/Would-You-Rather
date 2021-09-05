@@ -2,14 +2,19 @@ import React, { Component } from 'react'
 import {connect} from "react-redux";
 import Select from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import {setAuthedUser} from "../redux/actions/authedUsers.js";
+import {withRouter} from "react-router-dom";
 
 class Login extends Component {
 
+    state = {
+        redirectUrl : ""
+    }
     authUser = (userId) => {
         this.props.dispatch(setAuthedUser(userId));
+
     }
+
     render() {
         return (
             <React.Fragment>
@@ -25,10 +30,11 @@ class Login extends Component {
                         </div>
                     }): 0}
                 </Select>
-
             </div>
             </React.Fragment>
         )
+
+
     }
 }
 
@@ -43,4 +49,4 @@ const mapStateToProps = ({users}) => {
     }
 }
 
-export default connect(mapStateToProps)(Login)
+export default withRouter(connect(mapStateToProps)(Login))

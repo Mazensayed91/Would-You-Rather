@@ -1,6 +1,7 @@
 const {QUESTIONS_CONSTANTS} = require('../constants/index.js');
 
 module.exports.questionsReducer = (questions = {}, action) => {
+
     switch(action.type) {
         case QUESTIONS_CONSTANTS.RECEIVE_ALL_QUESTIONS:
             return {...questions, ...action.payload.questions}

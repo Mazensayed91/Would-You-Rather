@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import {handleAddingQuestion} from "../redux/actions/questions";
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -10,15 +11,21 @@ class NewQuestion extends Component {
 
     state = {
         optionOne: "",
-        optionTwo: ""
+        optionTwo: "",
+        redirectFlag: 0
     }
-    handleOnSubmit = () => {
+    handleOnSubmit = (e) => {
 
         this.props.dispatch(handleAddingQuestion({
             optionOne: this.state.optionOne,
             optionTwo: this.state.optionTwo,
             authedUser: this.props.authedUser
         }))
+
+        e.preventDefault();
+        this.setState({
+            redirectFlag: 1
+        });
     }
 
     handleInputChange = (e) => {
@@ -28,6 +35,9 @@ class NewQuestion extends Component {
     };
 
     render() {
+        if(this.state.redirectFlag){
+            return <Redirect to="/" />
+        }
         return (
             <div className="App">
                 <Paper>
@@ -64,7 +74,7 @@ class NewQuestion extends Component {
                         <br/><br/><br/>
                         <Button
                             onClick={(e) => {
-                                this.handleOnSubmit();
+                                this.handleOnSubmit(e);
                             }}
                             value="submit"
                             type="submit"

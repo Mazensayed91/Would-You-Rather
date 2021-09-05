@@ -135,8 +135,8 @@ export function _saveQuestion (question) {
   return new Promise((res, rej) => {
     const authedUser = question.authedUser;
     const formattedQuestion = formatQuestion(question)
-
-    setTimeout(() => {
+      console.log("qqqqq", formattedQuestion)
+      setTimeout(() => {
       questions = {
         ...questions,
         [formattedQuestion.id]: formattedQuestion

@@ -19,7 +19,7 @@ export function formatQuestion ({ optionOne, optionTwo, authedUser }) {
     },
     optionTwo: {
       votes: [],
-      text: authedUser,
+      text: optionTwo,
     }
   }
 }

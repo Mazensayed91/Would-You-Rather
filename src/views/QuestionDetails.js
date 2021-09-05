@@ -4,6 +4,7 @@ import PieChart from '../helperComponents/PieChart'
 import {Button} from "@material-ui/core";
 import {Redirect, Link} from "react-router-dom";
 import {handleAnsweringQuestion} from "../redux/actions/questions";
+import PageNotFound from "./PageNotFound";
 
 class QuestionDetails extends React.Component {
 
@@ -19,9 +20,14 @@ class QuestionDetails extends React.Component {
     }
 
     render(){
-
+        if(!(this.props.questionId in this.props.questions)){
+            return(
+                <PageNotFound/>
+            )
+        }
         return (
             <div>
+                {console.log("check", this.props.questionId in this.props.questions)}
                 <h1>{this.props.questions[this.props.questionId].author}  <i>asks would you rather?</i></h1>
                 {}
                 {this.props.questions[this.props.questionId].optionOne.votes.includes(this.props.authedUser)
