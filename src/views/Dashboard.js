@@ -18,7 +18,7 @@ class Dashboard extends Component {
                     </TabList>
 
                     <TabPanel>
-                        {this.props.answeredQuestions ? Object.values(this.props.answeredQuestions).map((question) => {
+                        {this.props.answeredQuestionsSorted ? Object.values(this.props.answeredQuestionsSorted).map((question) => {
                                 return <Question
                                     key = {question.timestamp}
                                     author = {question.author}
@@ -31,7 +31,7 @@ class Dashboard extends Component {
                             []}
                     </TabPanel>
                     <TabPanel>
-                        {this.props.unAnsweredQuestions ? Object.values(this.props.unAnsweredQuestions).map((question) => {
+                        {this.props.unAnsweredQuestionsSorted ? Object.values(this.props.unAnsweredQuestionsSorted).map((question) => {
                                 return <Question
                                     key = {question.timestamp}
                                     author = {question.author}
@@ -39,7 +39,7 @@ class Dashboard extends Component {
                                     optionOne = {question.optionOne['text']}
                                     optionTwo = {question.optionTwo['text']}
                                     questionId = {question.id}
-                                    />
+                                />
                             })
                             :
                             []}
@@ -51,7 +51,7 @@ class Dashboard extends Component {
 }
 
 
-const mapStateToProps = ({users, questions, authedUser}) => {
+const mapStateToProps = ({questions, authedUser}) => {
 
     Object.filter = (object, filteringFunction) => {
         return Object.keys(object)
@@ -63,13 +63,42 @@ const mapStateToProps = ({users, questions, authedUser}) => {
     let answeredQuestions = Object.filter(questions, question => {
         return question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
     })
+    console.log("answeredQuestions", answeredQuestions);
+    console.log("sortedAnsweredQuestions", Object.keys(answeredQuestions).sort(
+        function(a,b){return answeredQuestions[a].timestamp-answeredQuestions[b].timestamp})
+    )
     let unAnsweredQuestions = Object.filter(questions, question => {
         return !question.optionOne.votes.includes(authedUser) && !question.optionTwo.votes.includes(authedUser)
     })
+    console.log("sortedUnAnsweredQuestions", Object.keys(unAnsweredQuestions).sort(
+        function(a,b){return unAnsweredQuestions[a].timestamp-unAnsweredQuestions[b].timestamp})
+    )
+
+    const answeredQuestionsSorted =
+        Object.keys(answeredQuestions)
+            .sort((a, b) => answeredQuestions[b].timestamp - answeredQuestions[a].timestamp)
+            .reduce(
+                (_sortedObj, key) => ({
+                    ..._sortedObj,
+                    [key]: answeredQuestions[key]
+                }),
+                {}
+            );
+
+    const unAnsweredQuestionsSorted =
+        Object.keys(unAnsweredQuestions)
+            .sort((a, b) => unAnsweredQuestions[b].timestamp - unAnsweredQuestions[a].timestamp)
+            .reduce(
+                (_sortedObj, key) => ({
+                    ..._sortedObj,
+                    [key]: unAnsweredQuestions[key]
+                }),
+                {}
+            );
     return {
         authedUser,
-        answeredQuestions,
-        unAnsweredQuestions
+        answeredQuestionsSorted,
+        unAnsweredQuestionsSorted
     }
 }
 
