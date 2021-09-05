@@ -1,22 +1,12 @@
 import React, {Component} from 'react';
 import Tab from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
-import {Redirect} from "react-router"
-//<Redirect exact from='/' to={window.location.href.replace("http://localhost:3000", "")}/>
+import {connect} from "react-redux";
+
 class NavBar extends Component {
-    state = {
-        redirect: false
-    }
-    handleOnClick = () => {
-        // redirect
-        this.setState({redirect: true});
-    }
+
     render() {
-        if (this.state.redirect) {
-            console.log("here we are")
-            return <Redirect push to="/" />;
-        }
-    return (
+        return (
 
         <React.Fragment>
 
@@ -29,13 +19,28 @@ class NavBar extends Component {
             <Tab>
                 <Link to = "/leaderboard"> Leaderboard </Link>
             </Tab>
-
-            {console.log("el console", window.location.href)}
-
+            <Tab style={
+                {
+                    float:'right',
+                    width:'300px',
+                    rightAlign: {
+                        marginLeft: 'auto',
+                    }
+                }
+            }>
+                {this.props.authedUser}
+            </Tab>
             <p />
 
         </React.Fragment>
     );
 }}
 
-export default NavBar
+const mapStateToProps = ({authedUser}) => {
+
+    return {
+        authedUser}
+}
+
+
+export default connect(mapStateToProps)(NavBar)
