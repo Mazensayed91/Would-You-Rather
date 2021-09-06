@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Tab from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import {setAuthedUser} from "../redux/actions/authedUsers.js";
 
 class NavBar extends Component {
 
@@ -22,13 +23,31 @@ class NavBar extends Component {
             <Tab style={
                 {
                     float:'right',
-                    width:'300px',
+                    width:'200px',
                     rightAlign: {
                         marginLeft: 'auto',
                     }
                 }
             }>
+
                 {this.props.authedUser}
+            </Tab>
+            <Tab style={
+                {
+                    float:'right',
+                    width:'200px',
+                    rightAlign: {
+                        marginLeft: 'auto',
+                    }
+                }
+            }
+            onClick={
+                () => {
+                    this.props.dispatch(setAuthedUser(null))
+                }
+            }>
+
+                LOGOUT
             </Tab>
             <p />
 
